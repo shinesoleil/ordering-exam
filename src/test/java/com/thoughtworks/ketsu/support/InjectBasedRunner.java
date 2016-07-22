@@ -75,6 +75,7 @@ public abstract class InjectBasedRunner extends BlockJUnit4ClassRunner {
                 username,
                 password
         );
+        System.out.println(connectURL);
         properties.setProperty("db.url", connectURL);
         List<AbstractModule> modules = new ArrayList<>(asList(new AbstractModule[]{
                 new AbstractModule() {
