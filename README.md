@@ -20,7 +20,7 @@
   
   
     
-5. return url in location when POST user with parameters
+5. return url in location when POST product with parameters
   e: 5 min
    
  
