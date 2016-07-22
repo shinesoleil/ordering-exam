@@ -63,6 +63,7 @@ public class Order implements Record {
   }
 
   public Optional<Payment> pay(Map<String, Object> info) {
+    info.put("order_id", getId());
     paymentMapper.save(info);
     return Optional.ofNullable(paymentMapper.findByOrderId(this.id));
   }

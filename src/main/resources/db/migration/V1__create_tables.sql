@@ -37,7 +37,7 @@ CREATE TABLE order_items (
 );
 
 CREATE TABLE payments (
-  order_id INT PRIMARY KEY AUTO_INCREMENT,
+  order_id INT PRIMARY KEY ,
   pay_type VARCHAR(255) NOT NULL ,
   pay_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   amount DOUBLE NOT NULL ,
