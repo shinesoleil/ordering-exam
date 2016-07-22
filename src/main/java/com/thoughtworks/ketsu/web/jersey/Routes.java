@@ -1,14 +1,19 @@
 package com.thoughtworks.ketsu.web.jersey;
 
 import com.thoughtworks.ketsu.domain.order.Order;
+import com.thoughtworks.ketsu.domain.payment.Payment;
 import com.thoughtworks.ketsu.domain.product.Product;
 import com.thoughtworks.ketsu.domain.user.User;
+import com.thoughtworks.ketsu.infrastructure.mybatis.mappers.OrderMapper;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 
 public class Routes {
 
+    @Inject
+    OrderMapper orderMapper;
 
     public Routes(UriInfo uriInfo) {
     }
@@ -27,5 +32,9 @@ public class Routes {
 
     public URI orderUrl(Order order) {
         return URI.create("users/" + order.getUserId() + "/orders/" + order.getId());
+    }
+
+    public URI paymentUrl(Payment payment, int userId) {
+        return URI.create("users/" + userId + "/orders/" + payment.getOrderId() + "/payment");
     }
 }

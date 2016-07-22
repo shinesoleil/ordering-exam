@@ -5,6 +5,7 @@ import com.thoughtworks.ketsu.domain.payment.Payment;
 import com.thoughtworks.ketsu.domain.user.User;
 import com.thoughtworks.ketsu.domain.user.UserRepository;
 import com.thoughtworks.ketsu.web.exception.InvalidParameterException;
+import com.thoughtworks.ketsu.web.jersey.Routes;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -42,7 +43,7 @@ public class PaymentApi {
     Optional<Payment> paymentOptional = order.pay(info);
 
     if (paymentOptional.isPresent()) {
-      return Response.status(201).build();
+      return Response.created(new Routes().paymentUrl(paymentOptional.get(), user.getId())).build();
     } else {
       throw new WebApplicationException(Response.Status.BAD_REQUEST);
     }
