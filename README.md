@@ -80,7 +80,7 @@
    
   
   
-5. return 400 when POST product with invalid parameters  
+5. return 400 when POST user with invalid parameters  
  e: 8 min  
   
     
