@@ -80,6 +80,14 @@ public class Order implements Record {
 
   @Override
   public Map<String, Object> toJson(Routes routes) {
-    return null;
+    return new HashMap<String, Object>() {{
+      put("uri", new Routes().orderUrl(Order.this));
+      put("name", getName());
+      put("address", getAddress());
+      put("phone", getPhone());
+      put("total_price", getTotalPrice());
+      put("created_at", getTime());
+      put("order_items", getOrderItems());
+    }};
   }
 }

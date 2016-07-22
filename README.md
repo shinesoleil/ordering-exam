@@ -131,7 +131,7 @@ e: 10 min
  e: 3 min  
   
   
-8. find al orders  
+8. find all orders  
  e: 5 min  
   
   
