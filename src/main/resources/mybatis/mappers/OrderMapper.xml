@@ -3,12 +3,32 @@
 <mapper namespace="com.thoughtworks.ketsu.infrastructure.mybatis.mappers.OrderMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="order.id" keyColumn="id">
         INSERT INTO orders (user_id, name, address, phone, time)
-        VALUES (#{order.user_id}, #{order.name}, #{order.address}, #{order.phone}, #{order.time})
+        VALUES (#{order.user_id}, #{order.name}, #{order.address}, #{order.phone}, #{order.time});
+
+        SET @LAST_INSERT_ORDER_ID = LAST_INSERT_ID();
+
+        INSERT INTO order_items (order_id, product_id, quantity, amount)
+        VALUES
+        <foreach collection="order.order_items" item="item" separator=",">
+            (@LAST_INSERT_ORDER_ID, #{item.product_id}, #{item.quantity}, #{item.amount})
+        </foreach>
     </insert>
 
     <select id="findById" resultMap="records.order">
-        SELECT *
-        FROM orders U
-        WHERE U.id = #{id}
+        SELECT
+        O.id AS id,
+        O.user_id AS user_id,
+        O.name AS name,
+        O.address AS address,
+        O.phone AS phone,
+        O.time AS time,
+        O.id AS order_id,
+        I.product_id AS product_id,
+        I.quantity AS quantity,
+        I.amount AS amount
+        FROM orders O
+        INNER JOIN order_items I
+        ON O.id = I.order_id
+        WHERE O.id = #{id}
     </select>
 </mapper>

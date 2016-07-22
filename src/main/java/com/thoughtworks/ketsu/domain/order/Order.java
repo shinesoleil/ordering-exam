@@ -4,6 +4,7 @@ import com.thoughtworks.ketsu.infrastructure.records.Record;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class Order implements Record {
@@ -13,17 +14,19 @@ public class Order implements Record {
   private String address;
   private String phone;
   private Date time;
+  private List<OrderItem> orderItems;
 
   public Order() {
   }
 
-  public Order(int id, int userId, String name, String address, String phone, Date time) {
+  public Order(int id, int userId, String name, String address, String phone, Date time, List<OrderItem> orderItems) {
     this.id = id;
     this.userId = userId;
     this.name = name;
     this.address = address;
     this.phone = phone;
     this.time = time;
+    this.orderItems = orderItems;
   }
 
   public int getId() {
@@ -48,6 +51,10 @@ public class Order implements Record {
 
   public Date getTime() {
     return time;
+  }
+
+  public List<OrderItem> getOrderItems() {
+    return orderItems;
   }
 
   @Override

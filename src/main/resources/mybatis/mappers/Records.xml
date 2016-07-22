@@ -28,5 +28,11 @@
         <result property="address" column="address"/>
         <result property="phone" column="phone"/>
         <result property="time" column="time"/>
+        <collection property="orderItems" ofType="com.thoughtworks.ketsu.domain.order.OrderItem">
+            <result property="orderId" column="order_id"/>
+            <result property="productId" column="product_id"/>
+            <result property="quantity" column="quantity"/>
+            <result property="amount" column="amount"/>
+        </collection>
     </resultMap>
 </mapper>

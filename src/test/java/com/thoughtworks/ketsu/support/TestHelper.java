@@ -1,7 +1,6 @@
 package com.thoughtworks.ketsu.support;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TestHelper {
     private static int auto_increment_key = 1;
@@ -48,11 +47,23 @@ public class TestHelper {
         }};
     }
 
-    public static Map<String, Object> orderMap() {
+    public static Map<String, Object> orderMap(int productId) {
         return new HashMap<String, Object>() {{
             put("name", "firstOrder");
             put("address", "Beijing");
             put("phone", "13099999999");
+            put("order_items", orderItemMapList(productId));
+        }};
+    }
+
+    public static List<Map<String, Object>> orderItemMapList(int productId) {
+        Map<String, Object> item =  new HashMap<String, Object>() {{
+            put("product_id", productId);
+            put("quantity", 2);
+        }};
+
+        return new ArrayList<Map<String, Object>>() {{
+            add(item);
         }};
     }
 }
