@@ -118,22 +118,25 @@ e: 10 min
  e: 8 min  
   
  
-5. return url in location when POST user with parameters
+5. return url in location when POST order with parameters
   e: 5 min
    
+   
+     
+6. return 400 when POST order with invalid parameters  
+ e: 8 min  
   
     
-6. return 200 when GET orders  
+7. return 200 when GET orders  
  e: 3 min  
   
   
-  
-7. find orders  
+8. find orders  
  e: 5 min  
   
   
  
-8. return a list of order json when GET orders  
+9. return a list of order json when GET orders  
  e: 10 min  
   
   
@@ -182,7 +185,6 @@ e: 10 min
   e: 5 min  
    
   
- 
 7. return 404 when GET payment by order id fails  
   e: 3 min  
    
