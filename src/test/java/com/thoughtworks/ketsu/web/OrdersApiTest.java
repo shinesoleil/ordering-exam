@@ -116,6 +116,5 @@ public class OrdersApiTest extends ApiSupport{
     Response get = get("users/" + userId + "/orders/1");
 
     assertThat(get.getStatus(), is(404));
-
   }
 }
