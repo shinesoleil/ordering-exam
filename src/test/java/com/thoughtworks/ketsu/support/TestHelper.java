@@ -47,4 +47,12 @@ public class TestHelper {
             put("name", "firstUser");
         }};
     }
+
+    public static Map<String, Object> orderMap() {
+        return new HashMap<String, Object>() {{
+            put("name", "firstOrder");
+            put("address", "Beijing");
+            put("phone", "13099999999");
+        }};
+    }
 }
