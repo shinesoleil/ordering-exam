@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 
 import javax.ws.rs.core.Response;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -16,12 +17,13 @@ import static org.hamcrest.core.Is.is;
 public class ProductApiTest extends ApiSupport{
 
   @Test
-  public void should_return_201_when_post_product_with_parameters() {
+  public void should_return_url_location_when_post_product_with_parameters() {
     Map<String, Object> info = TestHelper.productMap();
 
     Response post = post("products", info);
 
     assertThat(post.getStatus(), is(201));
+    assertThat(Pattern.matches(".*products/[0-9]+.*", post.getLocation().toASCIIString()), is(true));
   }
 
   @Test
@@ -33,4 +35,5 @@ public class ProductApiTest extends ApiSupport{
 
     assertThat(post.getStatus(), is(400));
   }
+
 }
