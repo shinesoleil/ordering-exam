@@ -50,4 +50,11 @@ public class ProductsApi {
   public List<Product> findProducts() {
     return productRepository.find();
   }
+
+  @GET
+  @Path("{productId}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Product findProductById(@PathParam("productId") int productId) {
+    return productRepository.findById(productId).get();
+  }
 }
