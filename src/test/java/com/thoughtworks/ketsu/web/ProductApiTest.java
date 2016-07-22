@@ -23,4 +23,14 @@ public class ProductApiTest extends ApiSupport{
 
     assertThat(post.getStatus(), is(201));
   }
+
+  @Test
+  public void should_return_400_when_post_product_with_invalid_params() {
+    Map<String, Object> info = TestHelper.productMap();
+    info.replace("name", null);
+
+    Response post = post("products", info);
+
+    assertThat(post.getStatus(), is(400));
+  }
 }
