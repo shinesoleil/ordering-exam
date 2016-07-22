@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -25,7 +26,7 @@ public class OrdersApiTest extends ApiSupport{
   UserRepository userRepository;
 
   @Test
-  public void should_return_201_when_post_order() {
+  public void should_return_url_location_when_post_order() {
     Map<String, Object> info = TestHelper.productMap();
     productRepository.create(info);
     int productId = Integer.valueOf(String.valueOf(info.get("id")));
@@ -39,5 +40,7 @@ public class OrdersApiTest extends ApiSupport{
     Response post = post("users/" + userId + "/orders", orderInfo);
 
     assertThat(post.getStatus(), is(201));
+    assertThat(Pattern.matches(".*users/[0-9]+/orders/[0-9]+.*", post.getLocation().toASCIIString()), is(true));
+
   }
 }
