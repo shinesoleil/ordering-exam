@@ -56,7 +56,7 @@ public class PaymentApi {
     User user = userRepository.findById(userId).get();
     Order order= user.findOrderById(orderId).get();
 
-    return order.findPaymentByOrderId(orderId).get();
+    return order.findPaymentByOrderId(orderId).orElseThrow(() -> new NotFoundException("Can not find payment by id, the order is not paied yet"));
 
   }
 }

@@ -35,9 +35,6 @@ public class OrdersApi {
     if (info.get("phone") == null) {
       invalidParamList.add("phone");
     }
-    if (info.get("time") == null) {
-      invalidParamList.add("time");
-    }
     if (invalidParamList.size() > 0) {
       throw new InvalidParameterException(invalidParamList);
     }
