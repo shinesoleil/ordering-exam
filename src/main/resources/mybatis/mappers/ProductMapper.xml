@@ -11,4 +11,9 @@
         FROM products P
         WHERE P.id = #{id}
     </select>
+
+    <select id="find" resultMap="records.product">
+        SELECT *
+        FROM products P
+    </select>
 </mapper>
