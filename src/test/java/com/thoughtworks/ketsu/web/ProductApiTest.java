@@ -68,5 +68,12 @@ public class ProductApiTest extends ApiSupport{
     assertThat(map.get("name"), is("desk"));
   }
 
+  @Test
+  public void should_return_404_when_get_product_by_id() {
+    Response get = get("products/1");
+
+    assertThat(get.getStatus(), is(404));
+  }
+
 
 }
