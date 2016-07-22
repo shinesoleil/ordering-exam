@@ -1,14 +1,18 @@
 package com.thoughtworks.ketsu.domain.order;
 
+import com.thoughtworks.ketsu.domain.payment.Payment;
+import com.thoughtworks.ketsu.infrastructure.mybatis.mappers.PaymentMapper;
 import com.thoughtworks.ketsu.infrastructure.records.Record;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.inject.Inject;
+import java.util.*;
 
 public class Order implements Record {
+
+  @Inject
+  PaymentMapper paymentMapper;
+
   private int id;
   private int userId;
   private String name;
@@ -57,6 +61,16 @@ public class Order implements Record {
   public List<OrderItem> getOrderItems() {
     return orderItems;
   }
+
+  public Optional<Payment> pay(Map<String, Object> info) {
+    paymentMapper.save(info);
+    return Optional.ofNullable(paymentMapper.findByOrderId(this.id));
+  }
+
+  public Optional<Payment> findPaymentByOrderId(int orderId) {
+    return Optional.ofNullable(paymentMapper.findByOrderId(orderId));
+  }
+
 
   public double getTotalPrice() {
     double totalPrice = 0;

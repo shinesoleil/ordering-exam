@@ -66,4 +66,11 @@ public class TestHelper {
             add(item);
         }};
     }
+
+    public static Map<String, Object> paymentMap() {
+        return new HashMap<String, Object>() {{
+            put("pay_type", "CASH");
+            put("amount", 1400);
+        }};
+    }
 }
