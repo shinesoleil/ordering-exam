@@ -1,6 +1,7 @@
 package com.thoughtworks.ketsu.web;
 
 import com.thoughtworks.ketsu.domain.product.ProductRepository;
+import com.thoughtworks.ketsu.domain.user.User;
 import com.thoughtworks.ketsu.domain.user.UserRepository;
 import com.thoughtworks.ketsu.support.ApiSupport;
 import com.thoughtworks.ketsu.support.ApiTestRunner;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -62,7 +64,7 @@ public class OrdersApiTest extends ApiSupport{
   }
 
   @Test
-  public void should_return_200_when_get_orders() {
+  public void should_return_list_of_order_json_when_get_orders() {
     Map<String, Object> info = TestHelper.productMap();
     productRepository.create(info);
     int productId = Integer.valueOf(String.valueOf(info.get("id")));
@@ -70,9 +72,17 @@ public class OrdersApiTest extends ApiSupport{
     Map<String, Object> userInfo = TestHelper.userMap();
     userRepository.create(userInfo);
     int userId = Integer.valueOf(String.valueOf(userInfo.get("id")));
+    User user = userRepository.findById(userId).get();
+
+    Map<String, Object> orderInfo = TestHelper.orderMap(productId);
+    user.placeOrder(orderInfo);
 
     Response get = get("users/" + userId + "/orders");
+    List<Map<String, Object>> mapList = get.readEntity(List.class);
 
     assertThat(get.getStatus(), is(200));
+    assertThat(mapList.size(), is(1));
+    assertThat(mapList.get(0).get("name"), is("firstOrder"));
   }
+
 }

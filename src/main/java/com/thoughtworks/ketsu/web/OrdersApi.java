@@ -54,7 +54,9 @@ public class OrdersApi {
   }
 
   @GET
-  public Response findOrders() {
-    return Response.status(200).build();
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Order> findOrders(@PathParam("userId") int userId) {
+    User user = userRepository.findById(userId).get();
+    return user.findOrders();
   }
 }
