@@ -60,4 +60,19 @@ public class OrdersApiTest extends ApiSupport{
 
     assertThat(post.getStatus(), is(400));
   }
+
+  @Test
+  public void should_return_200_when_get_orders() {
+    Map<String, Object> info = TestHelper.productMap();
+    productRepository.create(info);
+    int productId = Integer.valueOf(String.valueOf(info.get("id")));
+
+    Map<String, Object> userInfo = TestHelper.userMap();
+    userRepository.create(userInfo);
+    int userId = Integer.valueOf(String.valueOf(userInfo.get("id")));
+
+    Response get = get("users/" + userId + "/orders");
+
+    assertThat(get.getStatus(), is(200));
+  }
 }
