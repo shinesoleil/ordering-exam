@@ -46,7 +46,8 @@ public class User implements Record {
     info.put("user_id", getId());
 
     for (Map<String, Object> item: (List<Map<String, Object>>)info.get("order_items")) {
-      item.put("amount", ((int) item.get("quantity")) * getPriceByProductId((int) item.get("product_id")));
+      item.put("amount", ( Integer.valueOf(String.valueOf(item.get("quantity")))) *
+        getPriceByProductId(Integer.valueOf(String.valueOf(item.get("product_id")))));
     }
 
     orderMapper.save(info);

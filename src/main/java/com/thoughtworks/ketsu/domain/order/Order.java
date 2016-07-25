@@ -101,8 +101,8 @@ public class Order implements Record {
       put("address", getAddress());
       put("phone", getPhone());
       put("total_price", getTotalPrice());
-      put("created_at", getTime());
-      put("order_items", getOrderItems());
+      put("created_at", getTime().getTime());
+      put("order_items", orderItems);
     }};
   }
 }

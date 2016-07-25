@@ -11,7 +11,7 @@ var endpoint = process.env.ENDPOINT;
 
 console.log(endpoint);
 
-var productId, productURI, userName, orderURI, orderId;
+var productId, productURI, userName, userURI, userId, orderURI, orderId;
 
 describe("Test", function () {
   this.timeout(60000);
@@ -170,6 +170,7 @@ describe("Test", function () {
   });
 
   it("POST /users -> 201", function(done) {
+
     userName = 'scxu';
     var options = {
       url: endpoint + '/users',
@@ -197,13 +198,17 @@ describe("Test", function () {
         assert.lengthOf(result.missing, 0, "Missing/unresolved JSON schema $refs (" + result.missing && result.missing.join(', ') + ") in schema: " + JSON.stringify(schema, null, 4) + " Error");
         assert.ok(result.valid, "Got unexpected response body: " + (result.error && result.error.message) + " " + JSON.stringify(schema, null, 4) + " Error");
       }
+      userURI = response.headers['location'];
+      userId = userURI.split("/")[userURI.split("/").length - 1];
+      console.log(userId);
+
       done();
     });
   });
   //
   it("POST /users/{id}/orders -> 201", function(done) {
     var options = {
-      url: endpoint + '/users/' + userName + '/orders',
+      url: endpoint + '/users/' + userId + '/orders',
       method: 'POST',
       qs: {},
       json: {
@@ -218,6 +223,17 @@ describe("Test", function () {
       header: {}
     };
 
+    console.log(endpoint + '/users/' + userId + '/orders');
+    console.log({
+      "name": userName,
+      "address": "beijing",
+      "phone": "13200000000",
+      "order_items": [{
+        "product_id": productId,
+        "quantity": 2
+      }]
+    });
+
     request(options, function(error, response, body) {
       assert.isNull(error);
       assert.isNotNull(response, 'Response');
@@ -226,7 +242,7 @@ describe("Test", function () {
       if (schema != '') {
         // verify response body
         body = (body == '' ? '[empty]' : body);
-        assert.doesNotThrow(function() {
+        assert.doesNotThrow(function() {id
           JSON.parse(body);
         }, JSON.SyntaxError, "Invalid JSON: " + body);
         var json = JSON.parse(body);
@@ -243,7 +259,7 @@ describe("Test", function () {
   //
   it("GET /users/{id}/orders -> 200", function(done) {
     var options = {
-      url: endpoint + '/users/' + userName + '/orders',
+      url: endpoint + '/users/' + userId + '/orders',
       method: 'GET',
       qs: {},
       json: "",
